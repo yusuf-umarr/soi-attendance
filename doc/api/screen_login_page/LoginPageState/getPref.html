@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the getPref method from the LoginPageState class, for the Dart programming language.">
+  <title>getPref method - LoginPageState class - login_page library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">attendancewithfingerprint</a></li>
+    <li><a href="../../screen_login_page/screen_login_page-library.html">login_page</a></li>
+    <li><a href="../../screen_login_page/LoginPageState-class.html">LoginPageState</a></li>
+    <li class="self-crumb">getPref method</li>
+  </ol>
+  <div class="self-name">getPref</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span class="material-symbols-outlined">
+        brightness_4
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-method">getPref</span> method 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+<span class="name ">getPref</span>(<wbr>)
+
+      
+
+    </section>
+    
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; getPref() async {
+  final SharedPreferences preferences = await SharedPreferences.getInstance();
+  setState(() {
+    final getStatusSp = preferences.getString(&quot;status&quot;);
+    final getEmail = preferences.getString(&quot;email&quot;);
+    final getPassword = preferences.getString(&quot;password&quot;);
+
+    if (getStatusSp == statusLogged) {
+      _loginStatus = LoginStatus.doubleCheck;
+      &#47;&#47; if user already login, will check again, if there is any change on web server
+      &#47;&#47; Like change the role, or the status
+      email = getEmail;
+      pass = getPassword;
+      login(&#39;doubleCheck&#39;);
+    } else {
+      _loginStatus = LoginStatus.notSignIn;
+    }
+  });
+  return;
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../../index.html">attendancewithfingerprint</a></li>
+  <li><a href="../../screen_login_page/screen_login_page-library.html">login_page</a></li>
+  <li><a href="../../screen_login_page/LoginPageState-class.html">LoginPageState</a></li>
+  <li class="self-crumb">getPref method</li>
+</ol>
+
+
+    <h5>LoginPageState class</h5>
+    <ol>
+
+        <li class="section-title"><a href="../../screen_login_page/LoginPageState-class.html#constructors">Constructors</a></li>
+          <li><a href="../../screen_login_page/LoginPageState/LoginPageState.html">LoginPageState</a></li>
+
+
+        <li class="section-title">
+          <a href="../../screen_login_page/LoginPageState-class.html#instance-properties">Properties</a>
+        </li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/State/context.html">context</a></li>
+          <li><a href="../../screen_login_page/LoginPageState/dbHelper.html">dbHelper</a></li>
+          <li><a href="../../screen_login_page/LoginPageState/email.html">email</a></li>
+          <li><a href="../../screen_login_page/LoginPageState/getKey.html">getKey</a></li>
+          <li><a href="../../screen_login_page/LoginPageState/getPath.html">getPath</a></li>
+          <li><a href="../../screen_login_page/LoginPageState/getUrl.html">getUrl</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+          <li><a href="../../screen_login_page/LoginPageState/isLogged.html">isLogged</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/State/mounted.html">mounted</a></li>
+          <li><a href="../../screen_login_page/LoginPageState/pass.html">pass</a></li>
+          <li><a href="../../screen_login_page/LoginPageState/pr.html">pr</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+          <li><a href="../../screen_login_page/LoginPageState/statusLogged.html">statusLogged</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/State/widget.html">widget</a></li>
+
+        <li class="section-title"><a href="../../screen_login_page/LoginPageState-class.html#instance-methods">Methods</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/State/activate.html">activate</a></li>
+          <li><a href="../../screen_login_page/LoginPageState/build.html">build</a></li>
+          <li><a href="../../screen_login_page/LoginPageState/check.html">check</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/State/deactivate.html">deactivate</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/State/debugFillProperties.html">debugFillProperties</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/State/didChangeDependencies.html">didChangeDependencies</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html">didUpdateWidget</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/State/dispose.html">dispose</a></li>
+          <li><a href="../../screen_login_page/LoginPageState/getPref.html">getPref</a></li>
+          <li><a href="../../screen_login_page/LoginPageState/getSettings.html">getSettings</a></li>
+          <li><a href="../../screen_login_page/LoginPageState/getSnackBar.html">getSnackBar</a></li>
+          <li><a href="../../screen_login_page/LoginPageState/initState.html">initState</a></li>
+          <li><a href="../../screen_login_page/LoginPageState/inputLogin.html">inputLogin</a></li>
+          <li><a href="../../screen_login_page/LoginPageState/login.html">login</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/State/reassemble.html">reassemble</a></li>
+          <li><a href="../../screen_login_page/LoginPageState/removePref.html">removePref</a></li>
+          <li><a href="../../screen_login_page/LoginPageState/savePref.html">savePref</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/State/setState.html">setState</a></li>
+          <li><a href="../../screen_login_page/LoginPageState/showHide.html">showHide</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/Diagnosticable/toDiagnosticsNode.html">toDiagnosticsNode</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html">toString</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/Diagnosticable/toStringShort.html">toStringShort</a></li>
+
+        <li class="section-title inherited"><a href="../../screen_login_page/LoginPageState-class.html#operators">Operators</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
+
+
+
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    attendancewithfingerprint
+      2.0.0+1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+
