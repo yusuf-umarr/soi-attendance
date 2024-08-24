@@ -30,7 +30,7 @@ class SingleMenu extends StatelessWidget {
               blurRadius: 4,
               color: Color(0x34090F13),
               offset: Offset(0, 2),
-            )
+            ),
           ],
           borderRadius: BorderRadius.circular(16),
         ),

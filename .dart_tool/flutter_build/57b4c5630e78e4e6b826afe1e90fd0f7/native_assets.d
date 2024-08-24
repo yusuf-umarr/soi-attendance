@@ -1,0 +1,1 @@
+ /Users/yusuf/Desktop/soft/soi_attendance/.dart_tool/flutter_build/57b4c5630e78e4e6b826afe1e90fd0f7/native_assets.yaml: 

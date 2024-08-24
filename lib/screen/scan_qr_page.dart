@@ -49,8 +49,8 @@ class ScanQrPageState extends State<ScanQrPage> {
         final getUrl = data['url'].toString();
         final getKey = data['key'].toString();
 
-        log("getUrl:$getUrl");
-        log("getKey:$getKey");
+        log("getUrl-:$getUrl");
+        log("getKey-:$getKey");
 
         // Set the url and key
         settings = Settings(url: getUrl, key: getKey);

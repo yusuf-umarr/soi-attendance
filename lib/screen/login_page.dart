@@ -47,11 +47,8 @@ class LoginPageState extends State<LoginPage> {
 
   Future<void> getName() async {
     final preferences = await SharedPreferences.getInstance();
-
     final name = preferences.getString("name") ?? "";
-
     log("name from  storage $name");
-
     nameController.text = name;
   }
 
@@ -80,20 +77,20 @@ class LoginPageState extends State<LoginPage> {
   Future<void> getSettings() async {
     final getSettings = await dbHelper.getSettings(1);
     setState(() {
-      // getUrl = getSettings?.url;
-      getUrl = "https://attendance.tbclekki.org";
-      getKey = "Dlp0Oes2IdkBfH4u6lbAfmZlG93xzDPbb35Qm2W6";
-      // getKey = getSettings?.key;
+      getUrl = getSettings?.url;
+      getKey = getSettings?.key;
+
       log("getUrl:$getUrl");
       log("getKey:$getKey");
+      /*
+      ] getUrl:https://attendance.tbclekki.org
+[log] getKey:Dlp0Oes2IdkBfH4u6lbAfmZlG93xzDPbb35Qm2W6
+[log] urlLogin:https://attendance.tbclekki.org/api/login
+      */
 
       getPref();
     });
   }
-  /*
-   getUrl:https://attendance.tbclekki.org
-[log] getKey:Dlp0Oes2IdkBfH4u6lbAfmZlG93xzDPbb35Qm2W6
-  */
 
   // Function communicate with the server via API
   Future<void> login(String fromWhere) async {
@@ -303,11 +300,12 @@ class LoginPageState extends State<LoginPage> {
                         padding: const EdgeInsets.all(16.0),
                         children: <Widget>[
                           inputLogin(
-                              isEmail: true,
-                              email,
-                              loginLabelName,
-                              loginEmptyName,
-                              controller: nameController),
+                            isEmail: true,
+                            email,
+                            loginLabelName,
+                            loginEmptyName,
+                            controller: nameController,
+                          ),
                           const SizedBox(height: 20),
                           inputLogin(
                             isEmail: true,

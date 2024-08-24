@@ -2,7 +2,6 @@ import 'package:attendancewithfingerprint/screen/finger_print_attendance_page.da
 import 'package:attendancewithfingerprint/screen/qr_code_attendance_page.dart';
 import 'package:attendancewithfingerprint/utils/strings.dart';
 import 'package:attendancewithfingerprint/widgets/custom_switch.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -81,7 +80,7 @@ class _CheckInPageState extends State<CheckInPage> {
             else
               QrAttendancePage(
                 query: widget.query,
-              )
+              ),
           ],
         ),
       ),

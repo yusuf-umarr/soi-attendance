@@ -130,10 +130,9 @@ class FingerPrintAttendancePageState extends State<FingerPrintAttendancePage> {
   Future<void> getSettings() async {
     final getSettings = await dbHelper.getSettings(1);
     setState(() {
-      // getUrl = getSettings?.url;
-      // getKey = getSettings?.key;
-      getUrl = "https://attendance.tbclekki.org";
-      getKey = "Dlp0Oes2IdkBfH4u6lbAfmZlG93xzDPbb35Qm2W6";
+      getUrl = getSettings?.url;
+      getKey = getSettings?.key;
+
       getAreaApi();
     });
   }
@@ -152,7 +151,7 @@ class FingerPrintAttendancePageState extends State<FingerPrintAttendancePage> {
       dataArea = data['area'] as List;
     } else {
       dataArea = [
-        {"id": 0, "name": "No Data Area"}
+        {"id": 0, "name": "No Data Area"},
       ];
     }
 
@@ -235,7 +234,7 @@ class FingerPrintAttendancePageState extends State<FingerPrintAttendancePage> {
                     okText,
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
-                )
+                ),
               ],
             ).show();
           });

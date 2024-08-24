@@ -1,5 +1,6 @@
-import 'dart:developer';
+// ignore_for_file: always_declare_return_types, use_build_context_synchronously
 
+import 'dart:developer';
 import 'package:attendancewithfingerprint/provider/home_provider.dart';
 import 'package:attendancewithfingerprint/screen/check_in_page.dart';
 import 'package:attendancewithfingerprint/screen/login_page.dart';
@@ -33,6 +34,7 @@ class Menu extends StatefulWidget {
 
 class MenuState extends State<Menu> {
   String? getName = "";
+  bool serviceEnabled = false;
 
   @override
   void initState() {
@@ -40,8 +42,6 @@ class MenuState extends State<Menu> {
     getPref();
     super.initState();
   }
-
-  // bool isPermission = false;
 
   Future<void> _getPermission() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -54,76 +54,69 @@ class MenuState extends State<Menu> {
     });
   }
 
-  // checkPermission(HomeProvider val) {
-  //   if (val.isPermission) {
-  //     // log("permissioj successful");
-  //     getPermissionAttendance();
-  //   } else {
-  //     log("permissioj denied");
-  //   }
-  // }
-
-  _checkPermission(HomeProvider val) {
-    if (val.isPermission) {
-      // log("permissioj successful");
-      // newStartTime();
-      _determinePosition();
-      // getPermissionAttendance();
-    } else {
-      log("permission denied");
-    }
-  }
-
-  // Future<void> getPermissionAttendance() async {
-  //   await [
-  //     Permission.camera,
-  //     Permission.location,
-  //     Permission.locationWhenInUse,
-  //   ].request().then((value) {
-  //     _determinePosition();
-  //   });
-  // }
-
-  Future<Position> _determinePosition() async {
-    if (context.watch<HomeProvider>().permissionEnum != PermissionEnum.done) {
-      Future.delayed(const Duration(seconds: 1), () {
-        context.read<HomeProvider>().setpermissionEnum(PermissionEnum.loading);
-      });
-    }
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    // Test if location services are enabled.
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      getSnackBar('Location services are disabled.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        getSnackBar('Location permissions are denied');
+  Future<bool> _enablePermission(bool isFromCheck) async {
+    try {
+      
+      final homeVM = Provider.of<HomeProvider>(context, listen: false);
+      LocationPermission permission;
+      if (homeVM.permissionEnum != PermissionEnum.done) {
+        Future.delayed(const Duration(seconds: 1), () {
+          homeVM.setpermissionEnum(PermissionEnum.loading);
+        });
       }
-    }
 
-    if (permission == LocationPermission.deniedForever) {
-      getSnackBar(
-        'Location permissions are permanently denied, we cannot request permissions.',
-      );
-    }
-    context.read<HomeProvider>().setpermissionEnum(PermissionEnum.done);
+  
 
-    return Geolocator.getCurrentPosition();
+      permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+         permission = await Geolocator.requestPermission();
+        log("perm denied returned");
+        return false;
+      
+      }else{
+        if (isFromCheck) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const CheckInPage(
+                query: 'in',
+                title: mainMenuCheckInTitle,
+              ),
+            ),
+          );
+        }
+
+      }
+
+      // if (permission == LocationPermission.deniedForever) {
+      //   log(
+      //     'Location permissions are permanently denied, we cannot request permissions.',
+      //   );
+      // }
+      homeVM.setpermissionEnum(PermissionEnum.done);
+            serviceEnabled = await Geolocator.isLocationServiceEnabled();
+
+        setState(() {
+          
+        });
+  
+    
+      log("serviceEnabled=====:$serviceEnabled");
+    } catch (e) {
+      log("location error $e");
+      
+    }
+    
+
+    return serviceEnabled;
   }
 
-  // Show snackBar
-  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> getSnackBar(
-    String messageSnackBar,
-  ) {
-    return ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(messageSnackBar)));
-  }
+  // // Show snackBar
+  // ScaffoldFeatureController<SnackBar, SnackBarClosedReason> getSnackBar(
+  //   String messageSnackBar,
+  // ) {
+  //   return ScaffoldMessenger.of(context)
+  //       .showSnackBar(SnackBar(content: Text(messageSnackBar)));
+  // }
 
   // Function sign out
   Future<void> _signOut() async {
@@ -154,7 +147,7 @@ class MenuState extends State<Menu> {
 
   @override
   Widget build(BuildContext context) {
-    _checkPermission(context.watch<HomeProvider>());
+    // _checkPermission(context.watch<HomeProvider>());
     final Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
@@ -234,30 +227,6 @@ class MenuState extends State<Menu> {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-
-                        // Container(
-                        //   height: 100,
-                        //   width: 100,
-                        //   decoration: BoxDecoration(
-                        //     border: Border.all(color: Colors.blue),
-                        //   ),
-                        //   child: Image.asset(
-                        //     _isFingerPrint ? fingerPrint : qrCode,
-                        //     height: 100,
-                        //   ),
-                        // ),
-                        // const SizedBox(
-                        //   height: 20,
-                        // ),
-
-                        // CustomSwitch(
-                        //   value: _isFingerPrint,
-                        //   onChanged: (bool val) {
-                        //     setState(() {
-                        //       _isFingerPrint = val;
-                        //     });
-                        //   },
-                        // ),
                         const SizedBox(
                           height: 30,
                         ),
@@ -269,22 +238,22 @@ class MenuState extends State<Menu> {
                                 icon: FontAwesomeIcons.userClock,
                                 menuName: mainMenuCheckIn,
                                 color: Colors.blue,
-                                action: () => Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => const CheckInPage(
-                                      query: 'in',
-                                      title: mainMenuCheckInTitle,
-                                    ),
-                                    // ? const FingerPrintAttendancePage(
-                                    // query: 'in',
-                                    // title: mainMenuCheckInTitle,
-                                    //   )
-                                    // : const QrAttendancePage(
-                                    // name: 'Check-In',
-                                    // query: 'in',
-                                    //   ),
-                                  ),
-                                ),
+                                action: () {
+                                  if (!serviceEnabled) {
+                                    _enablePermission(true);
+                                    
+                                
+                                  } else {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => const CheckInPage(
+                                          query: 'in',
+                                          title: mainMenuCheckInTitle,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
                                 decName: mainMenuCheckInDec,
                               ),
                             ),
@@ -296,24 +265,21 @@ class MenuState extends State<Menu> {
                                 icon: FontAwesomeIcons.solidClock,
                                 menuName: mainMenuCheckOut,
                                 color: Colors.teal,
-                                action: () => Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => const CheckInPage(
-                                      query: 'out',
-                                      title: mainMenuCheckOutDec,
-                                    ),
-
-                                    //  _isFingerPrint
-                                    //     ? const FingerPrintAttendancePage(
-                                    //         query: 'out',
-                                    //         title: mainMenuCheckOutTitle,
-                                    //       )
-                                    //     : const QrAttendancePage(
-                                    //         name: 'Check-Out',
-                                    //         query: 'out',
-                                    //       ),
-                                  ),
-                                ),
+                                action: () {
+                                  if (!serviceEnabled) {
+                                    _enablePermission(true);
+                                
+                                  } else {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => const CheckInPage(
+                                          query: 'out',
+                                          title: mainMenuCheckOutDec,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
                                 decName: mainMenuCheckOutDec,
                               ),
                             ),
@@ -339,7 +305,7 @@ class MenuState extends State<Menu> {
                               name: mainMenuAbout,
                               action: () => Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) =>  AboutPage(),
+                                  builder: (context) => const AboutPage(),
                                 ),
                               ),
                             ),
@@ -429,7 +395,8 @@ class MenuState extends State<Menu> {
                                 top: 15,
                               ),
                               child: const Text(
-                                  "The SOI Attendance app collects location data to enable the attendance feature work accurately. Please allow the application access your location only when you are to have your attendance recorded. Thank you"),
+                                "The SOI Attendance app collects location data to enable the attendance feature work accurately. Please allow the application access your location only when you are to have your attendance recorded. Thank you",
+                              ),
                             ),
                           ),
                           const SizedBox(
@@ -460,6 +427,10 @@ class MenuState extends State<Menu> {
                                       .read<HomeProvider>()
                                       .setEnablePermission(true);
                                   Navigator.of(context).pop();
+                                  Future.delayed(const Duration(seconds: 1),
+                                      () {
+                                    _enablePermission(false);
+                                  });
                                 },
                                 child: const Text(
                                   "ALLOW",

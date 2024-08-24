@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:attendancewithfingerprint/provider/home_provider.dart';
-import 'package:attendancewithfingerprint/screen/login_page.dart';
 import 'package:attendancewithfingerprint/screen/scan_qr_page.dart';
 import 'package:attendancewithfingerprint/utils/strings.dart';
 import 'package:flutter/material.dart';
@@ -53,8 +52,7 @@ class _MyAppState extends State<MyApp> {
           primary: const Color(0xFF0E67B4),
         ),
       ),
-      home: const LoginPage(),
-      // home: const ScanQrPage(),
+      home: const ScanQrPage(),
     );
   }
 }

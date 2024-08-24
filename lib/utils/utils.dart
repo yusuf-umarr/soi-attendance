@@ -42,7 +42,7 @@ class Utils {
               okText,
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
-          )
+          ),
         ],
       ).show();
     } else {

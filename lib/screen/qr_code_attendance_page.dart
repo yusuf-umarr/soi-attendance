@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field, unnecessary_null_comparison
+
 import 'dart:async';
 import 'dart:developer';
 import 'package:attendancewithfingerprint/database/db_helper.dart';
@@ -147,8 +149,6 @@ class QrAttendancePageState extends State<QrAttendancePage> {
         );
       }
     } catch (e) {
-      // log("erro 4 res==xxxxxxx========x========x==========x=====:");
-
       _barcode = '$barcodeUnknownError : $e';
       if (kDebugMode) {
         print(_barcode);
@@ -158,9 +158,6 @@ class QrAttendancePageState extends State<QrAttendancePage> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-
-    // Show progress
     pr = ProgressDialog(
       context,
       isDismissible: false,
@@ -269,7 +266,7 @@ class QrAttendancePageState extends State<QrAttendancePage> {
                     borderRadius: BorderRadius.circular(18.0),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   buttonScan,
                   style: TextStyle(color: Colors.white),
                 ),
@@ -367,12 +364,10 @@ class QrAttendancePageState extends State<QrAttendancePage> {
   Future<void> getSettings() async {
     final getSettings = await dbHelper.getSettings(1);
     setState(() {
-         getUrl = "https://attendance.tbclekki.org";
-      getKey = "Dlp0Oes2IdkBfH4u6lbAfmZlG93xzDPbb35Qm2W6";
-      // getUrl = getSettings?.url;
-      // getKey = getSettings?.key;
+      getUrl = getSettings?.url;
+      getKey = getSettings?.key;
    
-      
+
       getAreaApi();
     });
   }
@@ -390,7 +385,7 @@ class QrAttendancePageState extends State<QrAttendancePage> {
       dataArea = data['area'] as List;
     } else {
       dataArea = [
-        {"id": 0, "name": "No Data Area"}
+        {"id": 0, "name": "No Data Area"},
       ];
     }
 
@@ -480,7 +475,7 @@ class QrAttendancePageState extends State<QrAttendancePage> {
                     okText,
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
-                )
+                ),
               ],
             ).show();
           });
@@ -569,13 +564,13 @@ class QrAttendancePageState extends State<QrAttendancePage> {
     } else {
       log("send data error 6");
 
-      Future.delayed(Duration(milliseconds: 500), () {
+      Future.delayed(const Duration(milliseconds: 500), () {
         setState(() {
           pr.hide();
         });
       });
 
-      Future.delayed(Duration(milliseconds: 500)).then((value) {
+      Future.delayed(const Duration(milliseconds: 500)).then((value) {
         // utils.showSnackBar(
         //   context,
         //   response.data["message"].toString(),

@@ -1,30 +1,19 @@
 import 'package:attendancewithfingerprint/utils/strings.dart';
+import 'package:easy_url_launcher/easy_url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:url_launcher/url_launcher.dart';
 import 'dart:io';
 
 class AboutPage extends StatelessWidget {
-  AboutPage({super.key});
+  const AboutPage({super.key});
 
+  bool isIOS() {
+    return Platform.isIOS;
+  }
 
-bool isIOS() {
-  return Platform.isIOS;
-}
-
-bool isAndroid() {
-  return Platform.isAndroid;
-}
-
-  // final Uri _url = Uri.parse('https://zealightlabs.com');
-
-
-
-  // Future<void> _launchUrl() async {
-  //   if (!await launchUrl(_url)) {
-  //     throw Exception('Could not launch $_url');
-  //   }
-  // }
+  bool isAndroid() {
+    return Platform.isAndroid;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,14 +51,13 @@ bool isAndroid() {
               style: GoogleFonts.quicksand(fontSize: 13.0, color: Colors.grey),
             ),
             InkWell(
-              onTap: () {
+              onTap: () async {
+                await EasyLauncher.url(url: "https://zealightlabs.com/");
                 if (isIOS()) {
                   // Code for iOS
                 } else if (isAndroid()) {
-                    //  _launchUrl();
-                
+                  //  _launchUrl();
                 }
-             
               },
               child: Text(
                 "Visit zealightlabs",

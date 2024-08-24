@@ -1,4 +1,5 @@
-///yusuf
+// ignore_for_file: use_late_for_private_fields_and_variables
+
 import 'package:flutter/material.dart';
 
 class CustomSwitch extends StatefulWidget {
@@ -6,7 +7,7 @@ class CustomSwitch extends StatefulWidget {
 
   final ValueChanged<bool> onChanged;
 
-  CustomSwitch({
+  const CustomSwitch({
     Key? key,
     required this.value,
     required this.onChanged,
@@ -14,10 +15,10 @@ class CustomSwitch extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CustomSwitchState createState() => _CustomSwitchState();
+  CustomSwitchState createState() => CustomSwitchState();
 }
 
-class _CustomSwitchState extends State<CustomSwitch>
+class CustomSwitchState extends State<CustomSwitch>
     with SingleTickerProviderStateMixin {
   Animation? _circleAnimation;
   AnimationController? _animationController;
@@ -87,12 +88,12 @@ class _CustomSwitchState extends State<CustomSwitch>
                   child: SizedBox(
                     width: 60,
                     child: Align(
-                      alignment: Alignment.center,
+                      // alignment: Alignment.center,
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 3),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          // crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
                               "",

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_positional_boolean_parameters
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 enum PermissionEnum { idle, loading, done }
@@ -8,7 +10,7 @@ class HomeProvider extends ChangeNotifier{
 
   bool isPermission = false;
 
-  void setEnablePermission(bool permission) async{
+  Future<void> setEnablePermission(bool permission) async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     isPermission =permission;
