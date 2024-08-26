@@ -28,7 +28,7 @@ class LoginPageState extends State<LoginPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _secureText = true;
 
-  final TextEditingController nameController = TextEditingController();
+  final TextEditingController nameController = TextEditingController(text: "");
 
   // Progress dialog
   late ProgressDialog pr;
@@ -79,6 +79,8 @@ class LoginPageState extends State<LoginPage> {
     setState(() {
       getUrl = getSettings?.url;
       getKey = getSettings?.key;
+      // getUrl = 'https://attendance.tbclekki.org';
+      // getKey = 'Dlp0Oes2IdkBfH4u6lbAfmZlG93xzDPbb35Qm2W6';
 
       log("getUrl:$getUrl");
       log("getKey:$getKey");
@@ -299,13 +301,13 @@ class LoginPageState extends State<LoginPage> {
                       child: ListView(
                         padding: const EdgeInsets.all(16.0),
                         children: <Widget>[
-                          inputLogin(
-                            isEmail: true,
-                            email,
-                            loginLabelName,
-                            loginEmptyName,
-                            controller: nameController,
-                          ),
+                          // inputLogin(
+                          //   isEmail: true,
+                          //   email,
+                          //   loginLabelName,
+                          //   loginEmptyName,
+                          //   controller: nameController,
+                          // ),
                           const SizedBox(height: 20),
                           inputLogin(
                             isEmail: true,
