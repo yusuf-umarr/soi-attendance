@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:attendancewithfingerprint/model/attendance.dart';
 import 'package:attendancewithfingerprint/model/settings.dart';
@@ -71,6 +72,7 @@ class DbHelper {
 
   // Insert new data
   Future<int> newSettings(Settings newSettings) async {
+    log("newSettings store:$newSettings");
     final db = (await database)!;
     final result = await db.insert(tableSettings, newSettings.toJson());
     return result;

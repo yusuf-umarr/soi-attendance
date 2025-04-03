@@ -1,4 +1,4 @@
-package com.soi.attendance.app
+package com.soiworkers.app
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.embedding.engine.FlutterEngine

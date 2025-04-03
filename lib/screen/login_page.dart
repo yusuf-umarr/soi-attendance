@@ -48,7 +48,6 @@ class LoginPageState extends State<LoginPage> {
   Future<void> getName() async {
     final preferences = await SharedPreferences.getInstance();
     final name = preferences.getString("name") ?? "";
-    log("name from  storage $name");
     nameController.text = name;
   }
 
@@ -84,12 +83,6 @@ class LoginPageState extends State<LoginPage> {
 
       log("getUrl:$getUrl");
       log("getKey:$getKey");
-      /*
-      ] getUrl:https://attendance.tbclekki.org
-[log] getKey:Dlp0Oes2IdkBfH4u6lbAfmZlG93xzDPbb35Qm2W6
-[log] urlLogin:https://attendance.tbclekki.org/api/login
-      */
-
       getPref();
     });
   }
@@ -98,7 +91,6 @@ class LoginPageState extends State<LoginPage> {
   Future<void> login(String fromWhere) async {
     try {
       final urlLogin = getUrl! + getPath;
-      log("urlLogin:$urlLogin");
       if (fromWhere == 'clickButton') pr.show();
 
       final Dio dio = Dio();
@@ -109,12 +101,12 @@ class LoginPageState extends State<LoginPage> {
       // Return the json data
       final dynamic data = response.data;
 
-      log("login response--:${data['message']}");
+      // log("login response--:${data['message']}");
 
       // Get the message data from json
       final message = data['message'].toString();
 
-      log("message-----yu:$message");
+      // log("message-----yu:$message");
 
       // Check if success
       if (message == "success") {
@@ -301,13 +293,7 @@ class LoginPageState extends State<LoginPage> {
                       child: ListView(
                         padding: const EdgeInsets.all(16.0),
                         children: <Widget>[
-                          // inputLogin(
-                          //   isEmail: true,
-                          //   email,
-                          //   loginLabelName,
-                          //   loginEmptyName,
-                          //   controller: nameController,
-                          // ),
+                       
                           const SizedBox(height: 20),
                           inputLogin(
                             isEmail: true,
@@ -368,11 +354,11 @@ class LoginPageState extends State<LoginPage> {
           key: _scaffoldKey,
           body: Container(
             color: const Color(0xFF0E67B4),
-            child: Center(
-              child: Image(
-                image: const AssetImage('images/logo_color.png'),
-                height: size.height * 0.2,
+            child: const Center(
+              child: CircularProgressIndicator(
+                color: Colors.white,
               ),
+           
             ),
           ),
         );
